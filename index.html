@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Franchisee Onboarding – Jim's</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --error: #f97373;
+      --success: #4ade80;
+      --border: #1f2937;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 24px 24px 20px;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.6);
+    }
+
+    h1 {
+      margin: 0 0 4px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .subtitle {
+      margin: 0 0 20px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    h2.section-title {
+      margin: 18px 0 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+      padding-bottom: 4px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px 18px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="date"],
+    select {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      background: #020617;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="tel"]:focus,
+    input[type="email"]:focus,
+    input[type="date"]:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+      background: #020617;
+    }
+
+    .file-field {
+      border-radius: 10px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      padding: 10px 12px;
+      background: rgba(15, 23, 42, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      margin-top: 8px;
+    }
+
+    .file-field:hover {
+      background: rgba(15, 23, 42, 0.95);
+      border-color: var(--accent);
+    }
+
+    .file-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 0.8rem;
+    }
+
+    .file-label span.primary {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .file-label span.secondary {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .file-name {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 180px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 22px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .status {
+      font-size: 0.8rem;
+      min-height: 1.2em;
+    }
+
+    .status.error {
+      color: var(--error);
+    }
+
+    .status.success {
+      color: var(--success);
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: var(--accent);
+      color: #0b1120;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.25);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(56, 189, 248, 0.35);
+      background: #0ea5e9;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      border: 2px solid rgba(15, 23, 42, 0.2);
+      border-top-color: rgba(15, 23, 42, 0.9);
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 800px) {
+      body {
+        padding: 16px;
+      }
+      .card {
+        padding: 18px 16px 16px;
+      }
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="card">
+      <h1>Franchisee Onboarding Form</h1>
+      <p class="subtitle">
+        Please complete all sections and upload the required documents. All fields and files are required unless marked otherwise.
+      </p>
+
+      <form id="franchiseeForm">
+        <!-- PERSONAL DETAILS -->
+        <h2 class="section-title">Personal details</h2>
+        <div class="grid-3">
+          <div class="field">
+            <label for="firstName">First name</label>
+            <input id="firstName" type="text" required />
+          </div>
+          <div class="field">
+            <label for="middleName">Middle name</label>
+            <input id="middleName" type="text" />
+          </div>
+          <div class="field">
+            <label for="surname">Surname</label>
+            <input id="surname" type="text" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" required />
+          </div>
+          <div class="field">
+            <label for="mobile">Mobile</label>
+            <input id="mobile" type="tel" required />
+          </div>
+          <div class="field">
+            <label for="dob">Date of birth</label>
+            <input id="dob" type="date" required />
+          </div>
+        </div>
+
+        <!-- RESIDENTIAL ADDRESS -->
+        <h2 class="section-title">Residential address</h2>
+        <div class="grid-3">
+          <div class="field">
+            <label for="resStreetNumber">Street number</label>
+            <input id="resStreetNumber" type="text" required />
+          </div>
+          <div class="field">
+            <label for="resStreetName">Street name</label>
+            <input id="resStreetName" type="text" required />
+          </div>
+          <div class="field">
+            <label for="resSuburb">Suburb</label>
+            <input id="resSuburb" type="text" required />
+          </div>
+          <div class="field">
+            <label for="resPostcode">Postcode</label>
+            <input id="resPostcode" type="text" required />
+          </div>
+          <div class="field">
+            <label for="resState">State</label>
+            <select id="resState" required>
+              <option value="">Select…</option>
+              <option>NSW</option>
+              <option>Vic</option>
+              <option>Qld</option>
+              <option>SA</option>
+              <option>WA</option>
+              <option>Tas</option>
+              <option>NT</option>
+              <option>ACT</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- POSTAL ADDRESS -->
+        <h2 class="section-title">Postal address</h2>
+        <div class="grid-3">
+          <div class="field">
+            <label for="postalStreetNumber">Street number</label>
+            <input id="postalStreetNumber" type="text" required />
+          </div>
+          <div class="field">
+            <label for="postalStreetName">Street name</label>
+            <input id="postalStreetName" type="text" required />
+          </div>
+          <div class="field">
+            <label for="postalSuburb">Suburb</label>
+            <input id="postalSuburb" type="text" required />
+          </div>
+          <div class="field">
+            <label for="postalPostcode">Postcode</label>
+            <input id="postalPostcode" type="text" required />
+          </div>
+          <div class="field">
+            <label for="postalState">State</label>
+            <select id="postalState" required>
+              <option value="">Select…</option>
+              <option>NSW</option>
+              <option>Vic</option>
+              <option>Qld</option>
+              <option>SA</option>
+              <option>WA</option>
+              <option>Tas</option>
+              <option>NT</option>
+              <option>ACT</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- EMERGENCY CONTACT -->
+        <h2 class="section-title">Emergency contact</h2>
+        <div class="grid-3">
+          <div class="field">
+            <label for="emergencyName">Name</label>
+            <input id="emergencyName" type="text" required />
+          </div>
+          <div class="field">
+            <label for="emergencyMobile">Mobile</label>
+            <input id="emergencyMobile" type="tel" required />
+          </div>
+          <div class="field">
+            <label for="emergencyRelationship">Relationship</label>
+            <input id="emergencyRelationship" type="text" required />
+          </div>
+        </div>
+
+        <!-- BUSINESS / REGISTERED ADDRESS -->
+        <h2 class="section-title">Business details</h2>
+        <div class="grid-3">
+          <div class="field">
+            <label for="abn">ABN</label>
+            <input id="abn" type="text" required />
+          </div>
+          <div class="field">
+            <label for="acn">ACN</label>
+            <input id="acn" type="text" />
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="field">
+            <label for="regStreetNumber">Registered street number</label>
+            <input id="regStreetNumber" type="text" required />
+          </div>
+          <div class="field">
+            <label for="regStreetName">Registered street name</label>
+            <input id="regStreetName" type="text" required />
+          </div>
+          <div class="field">
+            <label for="regSuburb">Registered suburb</label>
+            <input id="regSuburb" type="text" required />
+          </div>
+          <div class="field">
+            <label for="regPostcode">Registered postcode</label>
+            <input id="regPostcode" type="text" required />
+          </div>
+          <div class="field">
+            <label for="regState">Registered state</label>
+            <select id="regState" required>
+              <option value="">Select…</option>
+              <option>NSW</option>
+              <option>Vic</option>
+              <option>Qld</option>
+              <option>SA</option>
+              <option>WA</option>
+              <option>Tas</option>
+              <option>NT</option>
+              <option>ACT</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- LICENCES -->
+        <h2 class="section-title">Licences & registrations</h2>
+        <div class="grid-3">
+          <div class="field">
+            <label for="whiteCardNumber">White card number</label>
+            <input id="whiteCardNumber" type="text" required />
+          </div>
+          <div class="field">
+            <label for="openRegNumber">Open registration number</label>
+            <input id="openRegNumber" type="text" required />
+          </div>
+          <div class="field">
+            <label for="securityInstallerNumber">Security installer number</label>
+            <input id="securityInstallerNumber" type="text" required />
+          </div>
+          <div class="field">
+            <label for="securityResellerNumber">Security reseller number</label>
+            <input id="securityResellerNumber" type="text" required />
+          </div>
+          <div class="field">
+            <label for="electricalWorkerNumber">Electrical worker number</label>
+            <input id="electricalWorkerNumber" type="text" required />
+          </div>
+          <div class="field">
+            <label for="electricalContractorNumber">Electrical contractor number</label>
+            <input id="electricalContractorNumber" type="text" required />
+          </div>
+        </div>
+
+        <!-- VEHICLE -->
+        <h2 class="section-title">Vehicle details</h2>
+        <div class="grid-3">
+          <div class="field">
+            <label for="vehicleMake">Make</label>
+            <input id="vehicleMake" type="text" required />
+          </div>
+          <div class="field">
+            <label for="vehicleModel">Model</label>
+            <input id="vehicleModel" type="text" required />
+          </div>
+          <div class="field">
+            <label for="vehicleYear">Year</label>
+            <input id="vehicleYear" type="text" required />
+          </div>
+          <div class="field">
+            <label for="vehicleVariant">Variant</label>
+            <input id="vehicleVariant" type="text" required />
+          </div>
+        </div>
+
+        <!-- UNIFORM -->
+        <h2 class="section-title">Uniform</h2>
+        <div class="grid-3">
+          <div class="field">
+            <label for="shirtSize">Shirt size</label>
+            <select id="shirtSize" required>
+              <option value="">Select…</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+              <option>XXXL</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="waistSizeCm">Waist size (cm)</label>
+            <input id="waistSizeCm" type="text" required />
+          </div>
+          <div class="field">
+            <label for="numberShorts">Number of shorts</label>
+            <select id="numberShorts" required>
+              <option value="">Select…</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="numberPants">Number of pants</label>
+            <select id="numberPants" required>
+              <option value="">Select…</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- FILE UPLOADS -->
+        <h2 class="section-title">Required uploads</h2>
+        <p class="subtitle" style="margin-top: 0; margin-bottom: 6px;">
+          Please upload clear photos or scans of each required document.
+        </p>
+
+        <!-- DL Front -->
+        <label class="file-field">
+          <div class="file-label">
+            <span class="primary">Driver licence – front</span>
+            <span class="secondary">Image or PDF (required)</span>
+          </div>
+          <div class="file-name" id="dlFrontName">No file selected</div>
+          <input type="file" id="dlFront" accept="image/*,.pdf" required />
+        </label>
+
+        <!-- DL Back -->
+        <label class="file-field">
+          <div class="file-label">
+            <span class="primary">Driver licence – back</span>
+            <span class="secondary">Image or PDF (required)</span>
+          </div>
+          <div class="file-name" id="dlBackName">No file selected</div>
+          <input type="file" id="dlBack" accept="image/*,.pdf" required />
+        </label>
+
+        <!-- Vehicle photos -->
+        <label class="file-field">
+          <div class="file-label">
+            <span class="primary">Vehicle – front</span>
+            <span class="secondary">Image (required)</span>
+          </div>
+          <div class="file-name" id="frontName">No file selected</div>
+          <input type="file" id="front" accept="image/*" required />
+        </label>
+
+        <label class="file-field">
+          <div class="file-label">
+            <span class="primary">Vehicle – driver side</span>
+            <span class="secondary">Image (required)</span>
+          </div>
+          <div class="file-name" id="driversSideName">No file selected</div>
+          <input type="file" id="driversSide" accept="image/*" required />
+        </label>
+
+        <label class="file-field">
+          <div class="file-label">
+            <span class="primary">Vehicle – rear</span>
+            <span class="secondary">Image (required)</span>
+          </div>
+          <div class="file-name" id="rearName">No file selected</div>
+          <input type="file" id="rear" accept="image/*" required />
+        </label>
+
+        <label class="file-field">
+          <div class="file-label">
+            <span class="primary">Vehicle – passenger side</span>
+            <span class="secondary">Image (required)</span>
+          </div>
+          <div class="file-name" id="passengerSideName">No file selected</div>
+          <input type="file" id="passengerSide" accept="image/*" required />
+        </label>
+
+        <!-- Licence / card docs -->
+        <label class="file-field">
+          <div class="file-label">
+            <span class="primary">White card</span>
+            <span class="secondary">Image or PDF (required)</span>
+          </div>
+          <div class="file-name" id="whiteCardName">No file selected</div>
+          <input type="file" id="whiteCard" accept="image/*,.pdf" required />
+        </label>
+
+        <label class="file-field">
+          <div class="file-label">
+            <span class="primary">Open registration</span>
+            <span class="secondary">Image or PDF (required)</span>
+          </div>
+          <div class="file-name" id="openRegName">No file selected</div>
+          <input type="file" id="openReg" accept="image/*,.pdf" required />
+        </label>
+
+        <label class="file-field">
+          <div class="file-label">
+            <span class="primary">Security installer licence</span>
+            <span class="secondary">Image or PDF (required)</span>
+          </div>
+          <div class="file-name" id="securityInstallerName">No file selected</div>
+          <input type="file" id="securityInstaller" accept="image/*,.pdf" required />
+        </label>
+
+        <label class="file-field">
+          <div class="file-label">
+            <span class="primary">Security reseller licence</span>
+            <span class="secondary">Image or PDF (required)</span>
+          </div>
+          <div class="file-name" id="securityResellerName">No file selected</div>
+          <input type="file" id="securityReseller" accept="image/*,.pdf" required />
+        </label>
+
+        <label class="file-field">
+          <div class="file-label">
+            <span class="primary">Electrical worker licence</span>
+            <span class="secondary">Image or PDF (required)</span>
+          </div>
+          <div class="file-name" id="electricalWorkerName">No file selected</div>
+          <input type="file" id="electricalWorker" accept="image/*,.pdf" required />
+        </label>
+
+        <label class="file-field">
+          <div class="file-label">
+            <span class="primary">Electrical contractor licence</span>
+            <span class="secondary">Image or PDF (required)</span>
+          </div>
+          <div class="file-name" id="electricalContractorName">No file selected</div>
+          <input type="file" id="electricalContractor" accept="image/*,.pdf" required />
+        </label>
+
+        <!-- SUBMIT -->
+        <div class="footer-row">
+          <div id="status" class="status"></div>
+          <button type="submit" id="submitBtn">
+            <span>Submit application</span>
+            <span class="spinner" id="spinner" style="display: none;"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase + app logic -->
+  <script type="module">
+    // -------------------------------
+    // Firebase setup
+    // -------------------------------
+    const firebaseConfig = {
+      apiKey: "AIzaSyCUP9WQrLQF7b_7k65fkm13cFHlHpyGKEQ",
+      authDomain: "franchisee-portal-d65b5.firebaseapp.com",
+      projectId: "franchisee-portal-d65b5",
+      storageBucket: "franchisee-portal-d65b5.firebasestorage.app",
+      messagingSenderId: "129390358854",
+      appId: "1:129390358854:web:4f6f51d25fc75a7e213547"
+    };
+
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+    import {
+      getStorage,
+      ref,
+      uploadBytes,
+      getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // -------------------------------
+    // Helpers
+    // -------------------------------
+    const form = document.getElementById("franchiseeForm");
+    const statusEl = document.getElementById("status");
+    const submitBtn = document.getElementById("submitBtn");
+    const spinner = document.getElementById("spinner");
+
+    function setStatus(message, type = "") {
+      statusEl.textContent = message || "";
+      statusEl.className = "status" + (type ? " " + type : "");
+    }
+
+    function setLoading(isLoading) {
+      submitBtn.disabled = isLoading;
+      spinner.style.display = isLoading ? "inline-block" : "none";
+    }
+
+    function updateFileLabel(input, labelEl) {
+      if (input.files && input.files[0]) {
+        labelEl.textContent = input.files[0].name;
+      } else {
+        labelEl.textContent = "No file selected";
+      }
+    }
+
+    // File inputs & labels
+    const fileMap = [
+      ["dlFront", "dlFrontName"],
+      ["dlBack", "dlBackName"],
+      ["front", "frontName"],
+      ["driversSide", "driversSideName"],
+      ["rear", "rearName"],
+      ["passengerSide", "passengerSideName"],
+      ["whiteCard", "whiteCardName"],
+      ["openReg", "openRegName"],
+      ["securityInstaller", "securityInstallerName"],
+      ["securityReseller", "securityResellerName"],
+      ["electricalWorker", "electricalWorkerName"],
+      ["electricalContractor", "electricalContractorName"]
+    ];
+
+    for (const [inputId, labelId] of fileMap) {
+      const inputEl = document.getElementById(inputId);
+      const labelEl = document.getElementById(labelId);
+      inputEl.addEventListener("change", () => updateFileLabel(inputEl, labelEl));
+    }
+
+    async function uploadFileRequired(file, path) {
+      if (!file) {
+        throw new Error("Missing required file: " + path);
+      }
+      const storageRef = ref(storage, path);
+      await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(storageRef);
+      return url;
+    }
+
+    // -------------------------------
+    // Submit handler
+    // -------------------------------
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      setStatus("");
+      setLoading(true);
+      console.log("Form submit started");
+
+
+      try {
+        // Text fields
+        const firstName = document.getElementById("firstName").value.trim();
+        const middleName = document.getElementById("middleName").value.trim();
+        const surname = document.getElementById("surname").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const mobile = document.getElementById("mobile").value.trim();
+        const dob = document.getElementById("dob").value;
+
+        const resStreetNumber = document.getElementById("resStreetNumber").value.trim();
+        const resStreetName = document.getElementById("resStreetName").value.trim();
+        const resSuburb = document.getElementById("resSuburb").value.trim();
+        const resPostcode = document.getElementById("resPostcode").value.trim();
+        const resState = document.getElementById("resState").value;
+
+        const postalStreetNumber = document.getElementById("postalStreetNumber").value.trim();
+        const postalStreetName = document.getElementById("postalStreetName").value.trim();
+        const postalSuburb = document.getElementById("postalSuburb").value.trim();
+        const postalPostcode = document.getElementById("postalPostcode").value.trim();
+        const postalState = document.getElementById("postalState").value;
+
+        const emergencyName = document.getElementById("emergencyName").value.trim();
+        const emergencyMobile = document.getElementById("emergencyMobile").value.trim();
+        const emergencyRelationship = document.getElementById("emergencyRelationship").value.trim();
+
+        const abn = document.getElementById("abn").value.trim();
+        const acn = document.getElementById("acn").value.trim();
+
+        const regStreetNumber = document.getElementById("regStreetNumber").value.trim();
+        const regStreetName = document.getElementById("regStreetName").value.trim();
+        const regSuburb = document.getElementById("regSuburb").value.trim();
+        const regPostcode = document.getElementById("regPostcode").value.trim();
+        const regState = document.getElementById("regState").value;
+
+        const whiteCardNumber = document.getElementById("whiteCardNumber").value.trim();
+        const openRegNumber = document.getElementById("openRegNumber").value.trim();
+        const securityInstallerNumber = document.getElementById("securityInstallerNumber").value.trim();
+        const securityResellerNumber = document.getElementById("securityResellerNumber").value.trim();
+        const electricalWorkerNumber = document.getElementById("electricalWorkerNumber").value.trim();
+        const electricalContractorNumber = document.getElementById("electricalContractorNumber").value.trim();
+
+        const vehicleMake = document.getElementById("vehicleMake").value.trim();
+        const vehicleModel = document.getElementById("vehicleModel").value.trim();
+        const vehicleYear = document.getElementById("vehicleYear").value.trim();
+        const vehicleVariant = document.getElementById("vehicleVariant").value.trim();
+
+        const shirtSize = document.getElementById("shirtSize").value;
+        const waistSizeCm = document.getElementById("waistSizeCm").value.trim();
+        const numberShorts = document.getElementById("numberShorts").value;
+        const numberPants = document.getElementById("numberPants").value;
+
+        const fullName = `${firstName} ${surname}`.trim();
+
+        if (!firstName || !surname || !email) {
+          setStatus("Please complete all required personal details.", "error");
+          setLoading(false);
+          return;
+        }
+
+        // Files
+        const dlFrontFile = document.getElementById("dlFront").files[0];
+        const dlBackFile = document.getElementById("dlBack").files[0];
+        const frontFile = document.getElementById("front").files[0];
+        const driversSideFile = document.getElementById("driversSide").files[0];
+        const rearFile = document.getElementById("rear").files[0];
+        const passengerSideFile = document.getElementById("passengerSide").files[0];
+        const whiteCardFile = document.getElementById("whiteCard").files[0];
+        const openRegFile = document.getElementById("openReg").files[0];
+        const securityInstallerFile = document.getElementById("securityInstaller").files[0];
+        const securityResellerFile = document.getElementById("securityReseller").files[0];
+        const electricalWorkerFile = document.getElementById("electricalWorker").files[0];
+        const electricalContractorFile = document.getElementById("electricalContractor").files[0];
+
+        const submissionId = `sub_${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+
+        // Upload files
+        // Build a list of all required file uploads
+const uploads = [
+  ["dlFront", dlFrontFile,        `uploads/${submissionId}/DL_Front_${dlFrontFile?.name}`],
+  ["dlBack", dlBackFile,          `uploads/${submissionId}/DL_Back_${dlBackFile?.name}`],
+  ["front", frontFile,            `uploads/${submissionId}/Front_${frontFile?.name}`],
+  ["driversSide", driversSideFile,`uploads/${submissionId}/DriversSide_${driversSideFile?.name}`],
+  ["rear", rearFile,              `uploads/${submissionId}/Rear_${rearFile?.name}`],
+  ["passengerSide", passengerSideFile, `uploads/${submissionId}/PassengerSide_${passengerSideFile?.name}`],
+  ["whiteCard", whiteCardFile,    `uploads/${submissionId}/WhiteCard_${whiteCardFile?.name}`],
+  ["openRegistration", openRegFile, `uploads/${submissionId}/OpenRegistration_${openRegFile?.name}`],
+  ["securityInstaller", securityInstallerFile, `uploads/${submissionId}/SecurityInstaller_${securityInstallerFile?.name}`],
+  ["securityReseller", securityResellerFile, `uploads/${submissionId}/SecurityReseller_${securityResellerFile?.name}`],
+  ["electricalWorker", electricalWorkerFile, `uploads/${submissionId}/ElectricalWorker_${electricalWorkerFile?.name}`],
+  ["electricalContractor", electricalContractorFile, `uploads/${submissionId}/ElectricalContractor_${electricalContractorFile?.name}`],
+];
+
+// Kick them all off in parallel
+console.log("Starting uploads for", uploads.length, "files");
+
+const uploadResults = await Promise.all(
+  uploads.map(async ([key, file, path]) => {
+    const url = await uploadFileRequired(file, path);
+    return [key, { url }];
+  })
+);
+
+// Turn the result into the files object we store in Firestore
+const files = Object.fromEntries(uploadResults);
+
+        // Firestore doc
+        console.log("All uploads done, writing Firestore doc");
+        await addDoc(collection(db, "submissions"), {
+  // IDs
+  SubmissionId: submissionId,
+  Status: "New", // <-- important so we only pick up new ones
+  FullName: fullName,
+
+  // Personal details
+  FirstName: firstName,
+  MiddleName: middleName,
+  Surname: surname,
+  Email: email,
+  Mobile: mobile,
+  DateOfBirth: dob,
+
+  // Residential address
+  ResidentialStreetNumber: resStreetNumber,
+  ResidentialStreetName: resStreetName,
+  ResidentialSuburb: resSuburb,
+  ResidentialPostcode: resPostcode,
+  ResidentialState: resState,
+
+  // Postal address
+  PostalStreetNumber: postalStreetNumber,
+  PostalStreetName: postalStreetName,
+  PostalSuburb: postalSuburb,
+  PostalPostcode: postalPostcode,
+  PostalState: postalState,
+
+  // Emergency contact
+  EmergencyName: emergencyName,
+  EmergencyMobile: emergencyMobile,
+  EmergencyRelationship: emergencyRelationship,
+
+  // Business details
+  ABN: abn,
+  ACN: acn,
+  RegisteredStreetNumber: regStreetNumber,
+  RegisteredStreetName: regStreetName,
+  RegisteredSuburb: regSuburb,
+  RegisteredPostcode: regPostcode,
+  RegisteredState: regState,
+
+  // Licences / registrations
+  WhiteCardNumber: whiteCardNumber,
+  OpenRegistrationNumber: openRegNumber,
+  SecurityInstallerNumber: securityInstallerNumber,
+  SecurityResellerNumber: securityResellerNumber,
+  ElectricalWorkerNumber: electricalWorkerNumber,
+  ElectricalContractorNumber: electricalContractorNumber,
+
+  // Vehicle
+  VehicleMake: vehicleMake,
+  VehicleModel: vehicleModel,
+  VehicleYear: vehicleYear,
+  VehicleVariant: vehicleVariant,
+
+  // Uniform
+  ShirtSize: shirtSize,
+  WaistSizeCm: waistSizeCm,
+  NumberShorts: numberShorts,
+  NumberPants: numberPants,
+
+  // Meta
+  CreatedAt: serverTimestamp(),
+
+  // Files object → contains all the URLs:
+  // dlFront, dlBack, front, driversSide, rear, passengerSide, whiteCard, openRegistration, etc.
+  Files: files
+});
+
+
+        setStatus("Thanks! Your application and documents have been submitted successfully.", "success");
+        form.reset();
+
+        // Reset file labels
+        for (const [inputId, labelId] of fileMap) {
+          const inputEl = document.getElementById(inputId);
+          const labelEl = document.getElementById(labelId);
+          updateFileLabel(inputEl, labelEl);
+        }
+      } catch (err) {
+       console.error("Submit error:", err);
+       setStatus(
+       "Something went wrong submitting your application. Please try again.",
+       "error"
+     );
+} finally {
+  setLoading(false);
+}
+
+    });
+  </script>
+</body>
+</html>
