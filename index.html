@@ -8,7 +8,7 @@
   <style>
     :root {
       --bg: #0f172a;
-      --card: #111827;
+      --card: #004F96;
       --accent: #38bdf8;
       --accent-soft: rgba(56, 189, 248, 0.15);
       --text: #e5e7eb;
@@ -44,7 +44,21 @@
       border-radius: 16px;
       border: 1px solid var(--border);
       padding: 24px 24px 20px;
-      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.6);
+      box-shadow: 0 24px 60px rgba(255, 255, 255, 0.6);
+    }
+
+    /* HEADER WITH LOGO */
+    .header-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .header-row .logo {
+      height: 56px;
+      width: auto;
+      object-fit: contain;
     }
 
     h1 {
@@ -100,8 +114,8 @@
       border-radius: 10px;
       border: 1px solid var(--border);
       padding: 8px 10px;
-      background: #020617;
-      color: var(--text);
+      background: #ffffff;
+      color: #000000;   /* new text colour */
       font-size: 0.9rem;
       outline: none;
       transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
@@ -114,7 +128,7 @@
     select:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 1px var(--accent-soft);
-      background: #020617;
+      background: #ffffff;
     }
 
     .file-field {
@@ -244,20 +258,38 @@
       .grid-3 {
         grid-template-columns: 1fr;
       }
+      .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-row .logo {
+        height: 44px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="shell">
     <div class="card">
-      <h1>Franchisee Onboarding Form</h1>
-      <p class="subtitle">
-        Please complete all sections and upload the required documents. All fields and files are required unless marked otherwise.
-      </p>
+
+      <!-- HEADER WITH LOGO -->
+      <div class="header-row">
+        <img
+          src="jims-electrical-logo.png" 
+          alt="Jim's Electrical" 
+          class="logo"
+        />
+        <div>
+          <h1>Franchisee Information</h1>
+          <p class="subtitle">
+            Please complete all relevant sections and upload the required images.
+          </p>
+        </div>
+      </div>
 
       <form id="franchiseeForm">
         <!-- PERSONAL DETAILS -->
-        <h2 class="section-title">Personal details</h2>
+        <h2 class="section-title">Personal Details</h2>
         <div class="grid-3">
           <div class="field">
             <label for="firstName">First name</label>
@@ -286,7 +318,7 @@
         </div>
 
         <!-- RESIDENTIAL ADDRESS -->
-        <h2 class="section-title">Residential address</h2>
+        <h2 class="section-title">Residential Address</h2>
         <div class="grid-3">
           <div class="field">
             <label for="resStreetNumber">Street number</label>
@@ -321,27 +353,27 @@
         </div>
 
         <!-- POSTAL ADDRESS -->
-        <h2 class="section-title">Postal address</h2>
+        <h2 class="section-title">Postal Address - if different to residential</h2>
         <div class="grid-3">
           <div class="field">
             <label for="postalStreetNumber">Street number</label>
-            <input id="postalStreetNumber" type="text" required />
+            <input id="postalStreetNumber" type="text" />
           </div>
           <div class="field">
             <label for="postalStreetName">Street name</label>
-            <input id="postalStreetName" type="text" required />
+            <input id="postalStreetName" type="text" />
           </div>
           <div class="field">
             <label for="postalSuburb">Suburb</label>
-            <input id="postalSuburb" type="text" required />
+            <input id="postalSuburb" type="text" />
           </div>
           <div class="field">
             <label for="postalPostcode">Postcode</label>
-            <input id="postalPostcode" type="text" required />
+            <input id="postalPostcode" type="text" />
           </div>
           <div class="field">
             <label for="postalState">State</label>
-            <select id="postalState" required>
+            <select id="postalState">
               <option value="">Select…</option>
               <option>NSW</option>
               <option>Vic</option>
@@ -356,7 +388,7 @@
         </div>
 
         <!-- EMERGENCY CONTACT -->
-        <h2 class="section-title">Emergency contact</h2>
+        <h2 class="section-title">Emergency Contact</h2>
         <div class="grid-3">
           <div class="field">
             <label for="emergencyName">Name</label>
@@ -373,11 +405,11 @@
         </div>
 
         <!-- BUSINESS / REGISTERED ADDRESS -->
-        <h2 class="section-title">Business details</h2>
+        <h2 class="section-title">Business Details</h2>
         <div class="grid-3">
           <div class="field">
             <label for="abn">ABN</label>
-            <input id="abn" type="text" required />
+            <input id="abn" type="text" />
           </div>
           <div class="field">
             <label for="acn">ACN</label>
@@ -388,23 +420,23 @@
         <div class="grid-3">
           <div class="field">
             <label for="regStreetNumber">Registered street number</label>
-            <input id="regStreetNumber" type="text" required />
+            <input id="regStreetNumber" type="text" />
           </div>
           <div class="field">
             <label for="regStreetName">Registered street name</label>
-            <input id="regStreetName" type="text" required />
+            <input id="regStreetName" type="text" />
           </div>
           <div class="field">
             <label for="regSuburb">Registered suburb</label>
-            <input id="regSuburb" type="text" required />
+            <input id="regSuburb" type="text" />
           </div>
           <div class="field">
             <label for="regPostcode">Registered postcode</label>
-            <input id="regPostcode" type="text" required />
+            <input id="regPostcode" type="text" />
           </div>
           <div class="field">
             <label for="regState">Registered state</label>
-            <select id="regState" required>
+            <select id="regState">
               <option value="">Select…</option>
               <option>NSW</option>
               <option>Vic</option>
@@ -419,52 +451,52 @@
         </div>
 
         <!-- LICENCES -->
-        <h2 class="section-title">Licences & registrations</h2>
+        <h2 class="section-title">Licences & Registrations</h2>
         <div class="grid-3">
           <div class="field">
             <label for="whiteCardNumber">White card number</label>
-            <input id="whiteCardNumber" type="text" required />
+            <input id="whiteCardNumber" type="text" />
           </div>
           <div class="field">
             <label for="openRegNumber">Open registration number</label>
-            <input id="openRegNumber" type="text" required />
+            <input id="openRegNumber" type="text" />
           </div>
           <div class="field">
             <label for="securityInstallerNumber">Security installer number</label>
-            <input id="securityInstallerNumber" type="text" required />
+            <input id="securityInstallerNumber" type="text" />
           </div>
           <div class="field">
             <label for="securityResellerNumber">Security reseller number</label>
-            <input id="securityResellerNumber" type="text" required />
+            <input id="securityResellerNumber" type="text" />
           </div>
           <div class="field">
             <label for="electricalWorkerNumber">Electrical worker number</label>
-            <input id="electricalWorkerNumber" type="text" required />
+            <input id="electricalWorkerNumber" type="text" />
           </div>
           <div class="field">
             <label for="electricalContractorNumber">Electrical contractor number</label>
-            <input id="electricalContractorNumber" type="text" required />
+            <input id="electricalContractorNumber" type="text" />
           </div>
         </div>
 
         <!-- VEHICLE -->
-        <h2 class="section-title">Vehicle details</h2>
+        <h2 class="section-title">Vehicle Details</h2>
         <div class="grid-3">
           <div class="field">
             <label for="vehicleMake">Make</label>
-            <input id="vehicleMake" type="text" required />
+            <input id="vehicleMake" type="text" />
           </div>
           <div class="field">
             <label for="vehicleModel">Model</label>
-            <input id="vehicleModel" type="text" required />
+            <input id="vehicleModel" type="text" />
           </div>
           <div class="field">
             <label for="vehicleYear">Year</label>
-            <input id="vehicleYear" type="text" required />
+            <input id="vehicleYear" type="text" />
           </div>
           <div class="field">
             <label for="vehicleVariant">Variant</label>
-            <input id="vehicleVariant" type="text" required />
+            <input id="vehicleVariant" type="text" />
           </div>
         </div>
 
@@ -473,7 +505,7 @@
         <div class="grid-3">
           <div class="field">
             <label for="shirtSize">Shirt size</label>
-            <select id="shirtSize" required>
+            <select id="shirtSize">
               <option value="">Select…</option>
               <option>M</option>
               <option>L</option>
@@ -484,11 +516,11 @@
           </div>
           <div class="field">
             <label for="waistSizeCm">Waist size (cm)</label>
-            <input id="waistSizeCm" type="text" required />
+            <input id="waistSizeCm" type="text" />
           </div>
           <div class="field">
             <label for="numberShorts">Number of shorts</label>
-            <select id="numberShorts" required>
+            <select id="numberShorts">
               <option value="">Select…</option>
               <option>1</option>
               <option>2</option>
@@ -497,7 +529,7 @@
           </div>
           <div class="field">
             <label for="numberPants">Number of pants</label>
-            <select id="numberPants" required>
+            <select id="numberPants">
               <option value="">Select…</option>
               <option>1</option>
               <option>2</option>
@@ -509,14 +541,14 @@
         <!-- FILE UPLOADS -->
         <h2 class="section-title">Required uploads</h2>
         <p class="subtitle" style="margin-top: 0; margin-bottom: 6px;">
-          Please upload clear photos or scans of each required document.
+          Please upload clear photos or scans of each required document. If using a mobile you can take a picture of required document using phone camera.
         </p>
 
         <!-- DL Front -->
         <label class="file-field">
           <div class="file-label">
             <span class="primary">Driver licence – front</span>
-            <span class="secondary">Image or PDF (required)</span>
+            <span class="secondary">Image (required)</span>
           </div>
           <div class="file-name" id="dlFrontName">No file selected</div>
           <input type="file" id="dlFront" accept="image/*,.pdf" required />
@@ -526,7 +558,7 @@
         <label class="file-field">
           <div class="file-label">
             <span class="primary">Driver licence – back</span>
-            <span class="secondary">Image or PDF (required)</span>
+            <span class="secondary">Image (required)</span>
           </div>
           <div class="file-name" id="dlBackName">No file selected</div>
           <input type="file" id="dlBack" accept="image/*,.pdf" required />
@@ -536,92 +568,92 @@
         <label class="file-field">
           <div class="file-label">
             <span class="primary">Vehicle – front</span>
-            <span class="secondary">Image (required)</span>
+            <span class="secondary">Image</span>
           </div>
           <div class="file-name" id="frontName">No file selected</div>
-          <input type="file" id="front" accept="image/*" required />
+          <input type="file" id="front" accept="image/*" />
         </label>
 
         <label class="file-field">
           <div class="file-label">
             <span class="primary">Vehicle – driver side</span>
-            <span class="secondary">Image (required)</span>
+            <span class="secondary">Image</span>
           </div>
           <div class="file-name" id="driversSideName">No file selected</div>
-          <input type="file" id="driversSide" accept="image/*" required />
+          <input type="file" id="driversSide" accept="image/*" />
         </label>
 
         <label class="file-field">
           <div class="file-label">
             <span class="primary">Vehicle – rear</span>
-            <span class="secondary">Image (required)</span>
+            <span class="secondary">Image</span>
           </div>
           <div class="file-name" id="rearName">No file selected</div>
-          <input type="file" id="rear" accept="image/*" required />
+          <input type="file" id="rear" accept="image/*" />
         </label>
 
         <label class="file-field">
           <div class="file-label">
             <span class="primary">Vehicle – passenger side</span>
-            <span class="secondary">Image (required)</span>
+            <span class="secondary">Image</span>
           </div>
           <div class="file-name" id="passengerSideName">No file selected</div>
-          <input type="file" id="passengerSide" accept="image/*" required />
+          <input type="file" id="passengerSide" accept="image/*" />
         </label>
 
         <!-- Licence / card docs -->
         <label class="file-field">
           <div class="file-label">
             <span class="primary">White card</span>
-            <span class="secondary">Image or PDF (required)</span>
+            <span class="secondary">Image</span>
           </div>
           <div class="file-name" id="whiteCardName">No file selected</div>
-          <input type="file" id="whiteCard" accept="image/*,.pdf" required />
+          <input type="file" id="whiteCard" accept="image/*,.pdf" />
         </label>
 
         <label class="file-field">
           <div class="file-label">
             <span class="primary">Open registration</span>
-            <span class="secondary">Image or PDF (required)</span>
+            <span class="secondary">Image</span>
           </div>
           <div class="file-name" id="openRegName">No file selected</div>
-          <input type="file" id="openReg" accept="image/*,.pdf" required />
+          <input type="file" id="openReg" accept="image/*,.pdf" />
         </label>
 
         <label class="file-field">
           <div class="file-label">
             <span class="primary">Security installer licence</span>
-            <span class="secondary">Image or PDF (required)</span>
+            <span class="secondary">Image</span>
           </div>
           <div class="file-name" id="securityInstallerName">No file selected</div>
-          <input type="file" id="securityInstaller" accept="image/*,.pdf" required />
+          <input type="file" id="securityInstaller" accept="image/*,.pdf" />
         </label>
 
         <label class="file-field">
           <div class="file-label">
             <span class="primary">Security reseller licence</span>
-            <span class="secondary">Image or PDF (required)</span>
+            <span class="secondary">Image</span>
           </div>
           <div class="file-name" id="securityResellerName">No file selected</div>
-          <input type="file" id="securityReseller" accept="image/*,.pdf" required />
+          <input type="file" id="securityReseller" accept="image/*,.pdf" />
         </label>
 
         <label class="file-field">
           <div class="file-label">
             <span class="primary">Electrical worker licence</span>
-            <span class="secondary">Image or PDF (required)</span>
+            <span class="secondary">Image</span>
           </div>
           <div class="file-name" id="electricalWorkerName">No file selected</div>
-          <input type="file" id="electricalWorker" accept="image/*,.pdf" required />
+          <input type="file" id="electricalWorker" accept="image/*,.pdf" />
         </label>
 
         <label class="file-field">
           <div class="file-label">
             <span class="primary">Electrical contractor licence</span>
-            <span class="secondary">Image or PDF (required)</span>
+            <span class="secondary">Image</span>
           </div>
           <div class="file-name" id="electricalContractorName">No file selected</div>
-          <input type="file" id="electricalContractor" accept="image/*,.pdf" required />
+          <input type="file" id="electricalContractor" accept="image/*,.pdf" />
         </label>
 
         <!-- SUBMIT -->
@@ -649,7 +681,6 @@
       messagingSenderId: "129390358854",
       appId: "1:129390358854:web:4f6f51d25fc75a7e213547"
     };
-
 
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
     import {
@@ -727,6 +758,17 @@
       return url;
     }
 
+    async function uploadFileOptional(file, path) {
+      if (!file) {
+        // Optional upload: nothing to do
+        return null;
+      }
+      const storageRef = ref(storage, path);
+      await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(storageRef);
+      return url;
+    }
+
     // -------------------------------
     // Submit handler
     // -------------------------------
@@ -735,7 +777,6 @@
       setStatus("");
       setLoading(true);
       console.log("Form submit started");
-
 
       try {
         // Text fields
@@ -812,108 +853,119 @@
 
         const submissionId = `sub_${Date.now()}_${Math.floor(Math.random() * 100000)}`;
 
-        // Upload files
-        // Build a list of all required file uploads
-const uploads = [
-  ["dlFront", dlFrontFile,        `uploads/${submissionId}/DL_Front_${dlFrontFile?.name}`],
-  ["dlBack", dlBackFile,          `uploads/${submissionId}/DL_Back_${dlBackFile?.name}`],
-  ["front", frontFile,            `uploads/${submissionId}/Front_${frontFile?.name}`],
-  ["driversSide", driversSideFile,`uploads/${submissionId}/DriversSide_${driversSideFile?.name}`],
-  ["rear", rearFile,              `uploads/${submissionId}/Rear_${rearFile?.name}`],
-  ["passengerSide", passengerSideFile, `uploads/${submissionId}/PassengerSide_${passengerSideFile?.name}`],
-  ["whiteCard", whiteCardFile,    `uploads/${submissionId}/WhiteCard_${whiteCardFile?.name}`],
-  ["openRegistration", openRegFile, `uploads/${submissionId}/OpenRegistration_${openRegFile?.name}`],
-  ["securityInstaller", securityInstallerFile, `uploads/${submissionId}/SecurityInstaller_${securityInstallerFile?.name}`],
-  ["securityReseller", securityResellerFile, `uploads/${submissionId}/SecurityReseller_${securityResellerFile?.name}`],
-  ["electricalWorker", electricalWorkerFile, `uploads/${submissionId}/ElectricalWorker_${electricalWorkerFile?.name}`],
-  ["electricalContractor", electricalContractorFile, `uploads/${submissionId}/ElectricalContractor_${electricalContractorFile?.name}`],
-];
+        // ---------- Upload files ----------
+        console.log("Starting file uploads");
 
-// Kick them all off in parallel
-console.log("Starting uploads for", uploads.length, "files");
+        // Required uploads (DL front/back)
+        const requiredUploads = [
+          ["dlFront", dlFrontFile, `uploads/${submissionId}/DL_Front_${dlFrontFile?.name}`],
+          ["dlBack",  dlBackFile,  `uploads/${submissionId}/DL_Back_${dlBackFile?.name}`],
+        ];
 
-const uploadResults = await Promise.all(
-  uploads.map(async ([key, file, path]) => {
-    const url = await uploadFileRequired(file, path);
-    return [key, { url }];
-  })
-);
+        // Optional uploads
+        const optionalUploads = [
+          ["front",             frontFile,             `uploads/${submissionId}/Front_${frontFile?.name}`],
+          ["driversSide",       driversSideFile,       `uploads/${submissionId}/DriversSide_${driversSideFile?.name}`],
+          ["rear",              rearFile,              `uploads/${submissionId}/Rear_${rearFile?.name}`],
+          ["passengerSide",     passengerSideFile,     `uploads/${submissionId}/PassengerSide_${passengerSideFile?.name}`],
+          ["whiteCard",         whiteCardFile,         `uploads/${submissionId}/WhiteCard_${whiteCardFile?.name}`],
+          ["openRegistration",  openRegFile,           `uploads/${submissionId}/OpenRegistration_${openRegFile?.name}`],
+          ["securityInstaller", securityInstallerFile, `uploads/${submissionId}/SecurityInstaller_${securityInstallerFile?.name}`],
+          ["securityReseller",  securityResellerFile,  `uploads/${submissionId}/SecurityReseller_${securityResellerFile?.name}`],
+          ["electricalWorker",  electricalWorkerFile,  `uploads/${submissionId}/ElectricalWorker_${electricalWorkerFile?.name}`],
+          ["electricalContractor", electricalContractorFile, `uploads/${submissionId}/ElectricalContractor_${electricalContractorFile?.name}`],
+        ];
 
-// Turn the result into the files object we store in Firestore
-const files = Object.fromEntries(uploadResults);
+        const requiredResults = await Promise.all(
+          requiredUploads.map(async ([key, file, path]) => {
+            const url = await uploadFileRequired(file, path);
+            return [key, { url }];
+          })
+        );
+
+        const optionalResults = await Promise.all(
+          optionalUploads.map(async ([key, file, path]) => {
+            const url = await uploadFileOptional(file, path);
+            if (!url) return null;
+            return [key, { url }];
+          })
+        );
+
+        const files = Object.fromEntries([
+          ...requiredResults,
+          ...optionalResults.filter(Boolean),
+        ]);
 
         // Firestore doc
         console.log("All uploads done, writing Firestore doc");
         await addDoc(collection(db, "submissions"), {
-  // IDs
-  SubmissionId: submissionId,
-  Status: "New", // <-- important so we only pick up new ones
-  FullName: fullName,
+          // IDs
+          SubmissionId: submissionId,
+          Status: "New",
+          FullName: fullName,
 
-  // Personal details
-  FirstName: firstName,
-  MiddleName: middleName,
-  Surname: surname,
-  Email: email,
-  Mobile: mobile,
-  DateOfBirth: dob,
+          // Personal details
+          FirstName: firstName,
+          MiddleName: middleName,
+          Surname: surname,
+          Email: email,
+          Mobile: mobile,
+          DateOfBirth: dob,
 
-  // Residential address
-  ResidentialStreetNumber: resStreetNumber,
-  ResidentialStreetName: resStreetName,
-  ResidentialSuburb: resSuburb,
-  ResidentialPostcode: resPostcode,
-  ResidentialState: resState,
+          // Residential address
+          ResidentialStreetNumber: resStreetNumber,
+          ResidentialStreetName: resStreetName,
+          ResidentialSuburb: resSuburb,
+          ResidentialPostcode: resPostcode,
+          ResidentialState: resState,
 
-  // Postal address
-  PostalStreetNumber: postalStreetNumber,
-  PostalStreetName: postalStreetName,
-  PostalSuburb: postalSuburb,
-  PostalPostcode: postalPostcode,
-  PostalState: postalState,
+          // Postal address
+          PostalStreetNumber: postalStreetNumber,
+          PostalStreetName: postalStreetName,
+          PostalSuburb: postalSuburb,
+          PostalPostcode: postalPostcode,
+          PostalState: postalState,
 
-  // Emergency contact
-  EmergencyName: emergencyName,
-  EmergencyMobile: emergencyMobile,
-  EmergencyRelationship: emergencyRelationship,
+          // Emergency contact
+          EmergencyName: emergencyName,
+          EmergencyMobile: emergencyMobile,
+          EmergencyRelationship: emergencyRelationship,
 
-  // Business details
-  ABN: abn,
-  ACN: acn,
-  RegisteredStreetNumber: regStreetNumber,
-  RegisteredStreetName: regStreetName,
-  RegisteredSuburb: regSuburb,
-  RegisteredPostcode: regPostcode,
-  RegisteredState: regState,
+          // Business details
+          ABN: abn,
+          ACN: acn,
+          RegisteredStreetNumber: regStreetNumber,
+          RegisteredStreetName: regStreetName,
+          RegisteredSuburb: regSuburb,
+          RegisteredPostcode: regPostcode,
+          RegisteredState: regState,
 
-  // Licences / registrations
-  WhiteCardNumber: whiteCardNumber,
-  OpenRegistrationNumber: openRegNumber,
-  SecurityInstallerNumber: securityInstallerNumber,
-  SecurityResellerNumber: securityResellerNumber,
-  ElectricalWorkerNumber: electricalWorkerNumber,
-  ElectricalContractorNumber: electricalContractorNumber,
+          // Licences / registrations
+          WhiteCardNumber: whiteCardNumber,
+          OpenRegistrationNumber: openRegNumber,
+          SecurityInstallerNumber: securityInstallerNumber,
+          SecurityResellerNumber: securityResellerNumber,
+          ElectricalWorkerNumber: electricalWorkerNumber,
+          ElectricalContractorNumber: electricalContractorNumber,
 
-  // Vehicle
-  VehicleMake: vehicleMake,
-  VehicleModel: vehicleModel,
-  VehicleYear: vehicleYear,
-  VehicleVariant: vehicleVariant,
+          // Vehicle
+          VehicleMake: vehicleMake,
+          VehicleModel: vehicleModel,
+          VehicleYear: vehicleYear,
+          VehicleVariant: vehicleVariant,
 
-  // Uniform
-  ShirtSize: shirtSize,
-  WaistSizeCm: waistSizeCm,
-  NumberShorts: numberShorts,
-  NumberPants: numberPants,
+          // Uniform
+          ShirtSize: shirtSize,
+          WaistSizeCm: waistSizeCm,
+          NumberShorts: numberShorts,
+          NumberPants: numberPants,
 
-  // Meta
-  CreatedAt: serverTimestamp(),
+          // Meta
+          CreatedAt: serverTimestamp(),
 
-  // Files object → contains all the URLs:
-  // dlFront, dlBack, front, driversSide, rear, passengerSide, whiteCard, openRegistration, etc.
-  Files: files
-});
-
+          // Files
+          Files: files
+        });
 
         setStatus("Thanks! Your application and documents have been submitted successfully.", "success");
         form.reset();
@@ -925,15 +977,14 @@ const files = Object.fromEntries(uploadResults);
           updateFileLabel(inputEl, labelEl);
         }
       } catch (err) {
-       console.error("Submit error:", err);
-       setStatus(
-       "Something went wrong submitting your application. Please try again.",
-       "error"
-     );
-} finally {
-  setLoading(false);
-}
-
+        console.error("Submit error:", err);
+        setStatus(
+          "Something went wrong submitting your application. Please try again.",
+          "error"
+        );
+      } finally {
+        setLoading(false);
+      }
     });
   </script>
 </body>
